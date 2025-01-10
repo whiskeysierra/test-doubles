@@ -4,7 +4,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class OutputTrackingTest {
-
     @Test
     fun `tracks output over time`() {
         val tracking = OutputTracking<String>()
@@ -18,6 +17,7 @@ class OutputTrackingTest {
         tracking.emit("bob")
         assertThat(tracker).containsExactly("alice", "bob")
     }
+
     @Test
     fun `tracks no past output`() {
         val tracking = OutputTracking<String>()
