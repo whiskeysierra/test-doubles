@@ -6,11 +6,10 @@ import java.util.concurrent.CopyOnWriteArrayList
  * @see <a href="https://www.jamesshore.com/v2/projects/testing-without-mocks/testing-without-mocks#output-tracking">Testing without mocks: Output Tracking</a>
  */
 class OutputTracking<Output> {
-
     private inner class Subscription(
         private val output: MutableList<Output> = ArrayList(),
-    ) : Tracker<Output>, MutableList<Output> by output {
-
+    ) : Tracker<Output>,
+        MutableList<Output> by output {
         override fun clear() = output.clear()
 
         override fun close() {
