@@ -11,10 +11,10 @@ class OutputTrackingTest {
 
         assertThat(tracker).isEmpty()
 
-        tracking.emit("alice")
+        tracking.add("alice")
         assertThat(tracker).containsExactly("alice")
 
-        tracking.emit("bob")
+        tracking.add("bob")
         assertThat(tracker).containsExactly("alice", "bob")
     }
 
@@ -22,7 +22,7 @@ class OutputTrackingTest {
     fun `tracks no past output`() {
         val tracking = OutputTracking<String>()
 
-        tracking.emit("alice")
+        tracking.add("alice")
 
         val tracker = tracking.track()
         assertThat(tracker).isEmpty()
@@ -33,7 +33,7 @@ class OutputTrackingTest {
         val tracking = OutputTracking<String>()
         val tracker = tracking.track()
 
-        tracking.emit("alice")
+        tracking.add("alice")
         tracker.clear()
 
         assertThat(tracker).isEmpty()
@@ -44,9 +44,9 @@ class OutputTrackingTest {
         val tracking = OutputTracking<String>()
         val tracker = tracking.track()
 
-        tracking.emit("alice")
+        tracking.add("alice")
         tracker.clear()
-        tracking.emit("bob")
+        tracking.add("bob")
 
         assertThat(tracker).containsExactly("bob")
     }
@@ -56,9 +56,9 @@ class OutputTrackingTest {
         val tracking = OutputTracking<String>()
         val tracker = tracking.track()
 
-        tracking.emit("alice")
+        tracking.add("alice")
         tracker.close()
-        tracking.emit("bob")
+        tracking.add("bob")
 
         assertThat(tracker).containsOnly("alice")
         assertThat(tracker).doesNotContain("bob")
@@ -69,10 +69,10 @@ class OutputTrackingTest {
         val tracking = OutputTracking<String>()
 
         val tracker1 = tracking.track()
-        tracking.emit("alice")
+        tracking.add("alice")
 
         val tracker2 = tracking.track()
-        tracking.emit("bob")
+        tracking.add("bob")
 
         assertThat(tracker1).containsExactly("alice", "bob")
         assertThat(tracker2).containsExactly("bob")
